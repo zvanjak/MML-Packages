@@ -8,8 +8,11 @@
 
 [![C++20](https://img.shields.io/badge/C%2B%2B-20-blue.svg)](https://isocpp.org/std/the-standard)
 [![Libraries](https://img.shields.io/badge/libraries-5-orange.svg)](#the-packages)
-[![Platforms](https://img.shields.io/badge/platforms-Windows%20%7C%20Linux%20%7C%20macOS-brightgreen.svg)](#quick-start)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](#license)
+
+[![Windows released package](https://github.com/zvanjak/MML-Packages/actions/workflows/release-windows.yml/badge.svg)](https://github.com/zvanjak/MML-Packages/actions/workflows/release-windows.yml)
+[![Linux released package](https://github.com/zvanjak/MML-Packages/actions/workflows/release-linux.yml/badge.svg)](https://github.com/zvanjak/MML-Packages/actions/workflows/release-linux.yml)
+[![macOS released package](https://github.com/zvanjak/MML-Packages/actions/workflows/release-macos.yml/badge.svg)](https://github.com/zvanjak/MML-Packages/actions/workflows/release-macos.yml)
 
 **Build on [MinimalMathLibrary (MML)](https://github.com/zvanjak/MinimalMathLibrary) with focused C++20 packages** for numerical, symbolic, and scientific computing.
 
@@ -24,6 +27,8 @@
 MML Packages extends MML Core's vectors, matrices, calculus, and solvers with five domain libraries. Use the packages together or link only the ones you need. The separate `mml_ext` header tree contains MML-shaped extensions such as spectral graph analytics and field-line tracing.
 
 The public [releases](https://github.com/zvanjak/MML-Packages/releases) provide prebuilt static libraries, matching C++20 headers, a vendored MML Core snapshot, and relocatable CMake targets for Windows x64, Linux x86-64, and macOS arm64. This is an early 0.1 series: APIs and supported environments may change before 1.0.
+
+The platform badges report public consumer checks of a published release: each runner verifies its archive, builds the documentation apps against it, and runs both apps. They do not represent a source build of the private test suite. A badge appears once its workflow has run.
 
 ## The packages
 

@@ -1,0 +1,17 @@
+name: Linux released package
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    uses: ./.github/workflows/validate-release.yml
+    with:
+      runner: ubuntu-24.04
+      archive_suffix: linux-x64-glibc-libstdcxx
+      archive_extension: tar.gz

@@ -1,0 +1,75 @@
+name: Validate released package
+
+on:
+  workflow_call:
+    inputs:
+      runner:
+        required: true
+        type: string
+      archive_suffix:
+        required: true
+        type: string
+      archive_extension:
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  consumer:
+    runs-on: ${{ inputs.runner }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+      - name: Download and verify published archive
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ARCHIVE_SUFFIX: ${{ inputs.archive_suffix }}
+          ARCHIVE_EXTENSION: ${{ inputs.archive_extension }}
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $tag = gh release list --repo $env:GITHUB_REPOSITORY --exclude-drafts --limit 1 --json tagName --jq '.[0].tagName'
+          if ($LASTEXITCODE -ne 0) { throw 'Cannot find the newest published release' }
+          if ($tag -notmatch '^v0\.1\.\d+(-(alpha|beta|rc)\.\d+)?$') { throw "Unexpected release tag: $tag" }
+          $version = $tag.Substring(1)
+          $asset = "MML-Packages-$version-$env:ARCHIVE_SUFFIX.$env:ARCHIVE_EXTENSION"
+          gh release download $tag --repo $env:GITHUB_REPOSITORY --pattern $asset --pattern SHA256SUMS --dir release
+          if ($LASTEXITCODE -ne 0) { throw "Cannot download $asset or SHA256SUMS" }
+          $entries = @(Get-Content release/SHA256SUMS | ForEach-Object {
+            if ($_ -notmatch '^([0-9a-f]{64})  (.+)$') { throw "Invalid checksum entry: $_" }
+            [pscustomobject]@{ Hash = $Matches[1]; Name = $Matches[2] }
+          })
+          $expected = @($entries | Where-Object Name -eq $asset)
+          if ($expected.Count -ne 1) { throw "Expected exactly one checksum for $asset" }
+          $actual = (Get-FileHash "release/$asset" -Algorithm SHA256).Hash
+          if ($actual -ne $expected[0].Hash) { throw "Checksum mismatch for $asset" }
+          New-Item -ItemType Directory extracted | Out-Null
+          if ($env:ARCHIVE_EXTENSION -eq 'zip') {
+            Expand-Archive "release/$asset" -DestinationPath extracted
+          } else {
+            tar -xzf "release/$asset" -C extracted
+            if ($LASTEXITCODE -ne 0) { throw "Cannot extract $asset" }
+          }
+          $prefix = Join-Path (Resolve-Path extracted) "MML-Packages-$version-$env:ARCHIVE_SUFFIX"
+          $manifest = Get-Content (Join-Path $prefix 'share/mml-packages/release-manifest.json') -Raw | ConvertFrom-Json
+          if ($manifest.artifactVersion -ne $version -or $manifest.sourceDirty) { throw 'Release manifest does not match the published tag' }
+          "MML_INSTALLED_PREFIX=$prefix" >> $env:GITHUB_ENV
+      - name: Build public documentation consumers
+        shell: pwsh
+        run: |
+          cmake -S docs_demos -B build -DCMAKE_BUILD_TYPE=Release "-DMML_INSTALLED_PREFIX=$env:MML_INSTALLED_PREFIX"
+          if ($LASTEXITCODE -ne 0) { throw 'Consumer configuration failed' }
+          cmake --build build --config Release --parallel 4
+          if ($LASTEXITCODE -ne 0) { throw 'Consumer build failed' }
+      - name: Run public documentation consumers
+        shell: pwsh
+        run: |
+          $binaryDir = if ($IsWindows) { 'build/Release' } else { 'build' }
+          $extension = if ($IsWindows) { '.exe' } else { '' }
+          & "./$binaryDir/MML_DocsApp$extension"
+          if ($LASTEXITCODE -ne 0) { throw 'MML_DocsApp failed' }
+          & "./$binaryDir/MML_Ext_DocsApp$extension"
+          if ($LASTEXITCODE -ne 0) { throw 'MML_Ext_DocsApp failed' }

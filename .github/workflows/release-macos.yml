@@ -1,0 +1,17 @@
+name: macOS released package
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    uses: ./.github/workflows/validate-release.yml
+    with:
+      runner: macos-14
+      archive_suffix: macos-arm64-libcxx
+      archive_extension: tar.gz
