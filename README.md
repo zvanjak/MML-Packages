@@ -8,7 +8,7 @@
 
 [![C++20](https://img.shields.io/badge/C%2B%2B-20-blue.svg)](https://isocpp.org/std/the-standard)
 [![Libraries](https://img.shields.io/badge/libraries-5-orange.svg)](#the-packages)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](#license)
+[![License](https://img.shields.io/badge/license-free%20personal%2Feducation%20%7C%20commercial%20paid-blue.svg)](LICENSE.md)
 
 [![Windows released package](https://github.com/zvanjak/MML-Packages/actions/workflows/release-windows.yml/badge.svg)](https://github.com/zvanjak/MML-Packages/actions/workflows/release-windows.yml)
 [![Linux released package](https://github.com/zvanjak/MML-Packages/actions/workflows/release-linux.yml/badge.svg)](https://github.com/zvanjak/MML-Packages/actions/workflows/release-linux.yml)
