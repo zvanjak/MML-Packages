@@ -101,6 +101,18 @@ Link the example with `MML::Optimization`. The [optimization guides](docs/README
 
 ---
 
+## 🎯 Optimization Visualization Example
+
+NSGA-II returns a set of non-dominated objective points. For two-objective problems, those points form an approximate Pareto front in the `(f1, f2)` objective plane. The ZDT1 quick-start problem above produces the characteristic smooth trade-off curve: improving `f1` forces `f2` upward, and no point on the front dominates another.
+
+The screenshot below exports the sorted Pareto front as an MML Visualizers 2D parametric curve, with objective values scaled for readability.
+
+| NSGA-II ZDT1 Pareto front |
+|:-------------------------:|
+| ![NSGA-II ZDT1 Pareto front](<docs/images/example01_Pareto_front/Screenshot 2026-10-08 100630.png>) |
+
+---
+
 ## 🌊 PDE Visualization Example
 
 The PDE package also ships finite-difference solvers that can feed MML Visualizers. The 2D Laplace demo solves a steady-state temperature distribution on a square plate with a sinusoidally heated top edge and fixed zero temperature on the remaining edges:
