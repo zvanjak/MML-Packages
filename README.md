@@ -101,6 +101,26 @@ Link the example with `MML::Optimization`. The [optimization guides](docs/README
 
 ---
 
+## 🌊 PDE Visualization Example
+
+The PDE package also ships finite-difference solvers that can feed MML Visualizers. The 2D Laplace demo solves a steady-state temperature distribution on a square plate with a sinusoidally heated top edge and fixed zero temperature on the remaining edges:
+
+```text
+∇²u = 0 on [0,1] × [0,1]
+u(x,0) = 0
+u(x,1) = sin(πx)
+u(0,y) = 0
+u(1,y) = 0
+```
+
+Source: [docs_demos/pde/example03_2d_laplace.cpp](docs_demos/pde/example03_2d_laplace.cpp). The same solution can be exported as an MML Visualizers scalar-field file, making the temperature surface easy to inspect interactively.
+
+| Surface view | Rotated view | Height-field detail |
+|:------------:|:------------:|:-------------------:|
+| ![2D Laplace temperature surface](<docs/images/example02_temp_distribution/Screenshot 2026-10-08 094835.png>) | ![2D Laplace rotated temperature surface](<docs/images/example02_temp_distribution/Screenshot 2026-10-08 094848.png>) | ![2D Laplace height-field detail](<docs/images/example02_temp_distribution/Screenshot 2026-10-08 094903.png>) |
+
+---
+
 ## 🛠️ Building & Linking
 
 The public repository is a **release companion**, not a standalone source build: it contains headers, documentation, examples, and a vendored MML snapshot, but not the private library build sources or root CMake project. Use a matching [release archive](https://github.com/zvanjak/MML-Packages/releases) for compiled libraries. The installed `MMLPackages` config exports `MML::Packages`, five individual package targets, `MML::Core`, and `MML::Ext`.
