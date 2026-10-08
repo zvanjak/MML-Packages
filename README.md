@@ -50,7 +50,7 @@ This is an early 0.1 series: APIs and supported environments may change before 1
 
 ## 🚀 Quick Start
 
-1. Download your platform archive and `SHA256SUMS` from [Releases](https://github.com/zvanjak/MML-Packages/releases). The [first published prerelease](https://github.com/zvanjak/MML-Packages/releases/tag/v0.1.0-rc.5) is `v0.1.0-rc.5`.
+1. Download your platform archive and `SHA256SUMS` from [Releases](https://github.com/zvanjak/MML-Packages/releases). The current first public release is [`v0.1.0`](https://github.com/zvanjak/MML-Packages/releases/tag/v0.1.0).
 2. Verify the archive's checksum, extract it, and use the extracted directory as your installation prefix. Keep its headers and libraries together.
 3. Point CMake at that prefix and link `MML::Packages` for all five libraries, or an individual target such as `MML::Optimization`. The [binary installation guide](docs/Binary_Release.md) covers the exact toolchains, ABI requirements, and checksum commands.
 
@@ -143,7 +143,7 @@ Pass the actual extracted directory as `MML_INSTALLED_PREFIX`. On multi-configur
 - [Package documentation](docs/) covers each domain and its APIs.
 - [Runnable documentation demos](docs_demos/) back the examples; start with the [PDE gallery](docs/pde/Examples_Gallery.md) or the [optimization guides](docs/README_Optimization.md).
 - [Binary installation](docs/Binary_Release.md) covers toolchains, CMake targets, checksums, and the release manifest.
-- [First prerelease notes](docs/Release_Notes_v0.1.0-rc.5.md) record validated assets and known limitations. For later releases, read their accompanying notes and `share/mml-packages/release-manifest.json` rather than assuming the first release's toolchain details apply.
+- Read the release notes and `share/mml-packages/release-manifest.json` that accompany each archive rather than assuming another release's toolchain details apply.
 
 ## License
 
