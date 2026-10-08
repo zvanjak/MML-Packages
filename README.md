@@ -1,66 +1,107 @@
 <div align="center">
 
-# MML Packages
+# 📦 MML Packages
 
-### Domain-specific numerical libraries for the Minimal Math Library
+### **Domain-Specific Numerical Libraries for the Minimal Math Library**
 
-*Symbolic math / Optimization / PDEs / Fourier analysis / Statistics / MML extensions*
+*Symbolic math • Optimization • PDEs • Fourier analysis • Inferential statistics • Graph analytics*
 
 [![C++20](https://img.shields.io/badge/C%2B%2B-20-blue.svg)](https://isocpp.org/std/the-standard)
-[![Libraries](https://img.shields.io/badge/libraries-5-orange.svg)](#the-packages)
+[![Packages](https://img.shields.io/badge/packages-6-orange.svg)](#-the-packages)
+[![Built on MML](https://img.shields.io/badge/built%20on-MML%202.0-9cf.svg)](https://github.com/zvanjak/MML)
 [![License](https://img.shields.io/badge/license-free%20personal%2Feducation%20%7C%20commercial%20paid-blue.svg)](LICENSE.md)
 
 [![Windows released package](https://github.com/zvanjak/MML-Packages/actions/workflows/release-windows.yml/badge.svg)](https://github.com/zvanjak/MML-Packages/actions/workflows/release-windows.yml)
 [![Linux released package](https://github.com/zvanjak/MML-Packages/actions/workflows/release-linux.yml/badge.svg)](https://github.com/zvanjak/MML-Packages/actions/workflows/release-linux.yml)
 [![macOS released package](https://github.com/zvanjak/MML-Packages/actions/workflows/release-macos.yml/badge.svg)](https://github.com/zvanjak/MML-Packages/actions/workflows/release-macos.yml)
 
-**Build on [MinimalMathLibrary (MML)](https://github.com/zvanjak/MinimalMathLibrary) with focused C++20 packages** for numerical, symbolic, and scientific computing.
+**Extend [MML Core](https://github.com/zvanjak/MML) with focused C++20 packages** — solve multi-objective optimization problems, march PDEs on structured grids, run spectral analysis, test hypotheses, build symbolic expressions, and analyze graphs.
 
-[The packages](#the-packages) | [Quick start](#quick-start) | [Building & linking](#building--linking) | [Documentation](#documentation)
+[The Packages](#-the-packages) • [Quick Start](#-quick-start) • [Building](#-building--linking) • [Docs](#-documentation)
 
 </div>
 
 ---
 
-## What is MML Packages?
+## 🎯 What is MML Packages?
 
-MML Packages extends MML Core's vectors, matrices, calculus, and solvers with five domain libraries. Use the packages together or link only the ones you need. The separate `mml_ext` header tree contains MML-shaped extensions such as spectral graph analytics and field-line tracing.
+**MML Packages** extends MML Core's vectors, matrices, calculus, and solvers with five domain libraries plus the `mml_ext` extension header tree. Use all packages through `MML::Packages`, or link only the target you need (`MML::Optimization`, `MML::PDE`, `MML::Fourier`, `MML::Statistics`, `MML::Symbolic`, or `MML::Ext`).
 
-The public [releases](https://github.com/zvanjak/MML-Packages/releases) provide prebuilt static libraries, matching C++20 headers, a vendored MML Core snapshot, and relocatable CMake targets for Windows x64, Linux x86-64, and macOS arm64. This is an early 0.1 series: APIs and supported environments may change before 1.0.
+The public [releases](https://github.com/zvanjak/MML-Packages/releases) provide prebuilt static libraries, matching C++20 headers, a vendored MML Core snapshot, documentation demos, and relocatable CMake targets for Windows x64, Linux x86-64, and macOS arm64. This public repository is a **release companion**: it contains headers, documentation, examples, release metadata, and vendored MML Core headers, but it does **not** contain the private package implementation sources or root source-build project.
 
 The platform badges report public consumer checks of a published release: each runner verifies its archive, builds the documentation apps against it, and runs both apps. They do not represent a source build of the private test suite. A badge appears once its workflow has run.
 
-## The packages
+This is an early 0.1 series: APIs and supported environments may change before 1.0.
+
+---
+
+## 🧩 The Packages
 
 | Package | What it does | Highlights |
-| --- | --- | --- |
-| [Optimization](docs/README_Optimization.md) | Search and multi-objective optimization | Genetic algorithms, simulated annealing, NSGA-II, MOEA/D, constraints, solver lifecycle |
-| [PDE](docs/README_PDE.md) | Partial differential equation solvers | Structured grids, boundary conditions, Poisson, heat, wave, and advection |
-| [Fourier](docs/README_Fourier.md) | Spectral and signal analysis | Fourier series, power spectra, convolution, correlation, Fourier bases |
-| [Statistics](docs/README_Statistics.md) | Data and inferential statistics | Descriptors, random generators, time series, hypothesis tests |
-| [Symbolic](docs/README_Symbolic.md) | Symbolic computing and differentiation | Expression trees, simplification, automatic differentiation, code generation |
-| [mml_ext](include/mml_ext/) | Extensions to MML Core | Spectral graph analysis and field-line tracing (headers, not a sixth package library) |
+|---------|--------------|------------|
+| 🎯 [**Optimization**](docs/README_Optimization.md) | Derivative-free, stochastic, constrained, and multi-objective optimization | Genetic Algorithms, Simulated Annealing, **NSGA-II** & **MOEA/D**, penalty methods, Revised Simplex LP, lifecycle/observer APIs, benchmark problem suite |
+| 🌊 [**PDE**](docs/README_PDE.md) | Partial differential equation solvers | Structured 1D/2D/3D grids, boundary conditions, stencils; Poisson, Heat, Wave & Advection; manufactured-solution test beds |
+| 📈 [**Fourier**](docs/README_Fourier.md) | Spectral and signal analysis | Fourier series, spectrum analysis, convolution, correlation, orthogonal Fourier bases |
+| 📊 [**Statistics**](docs/README_Statistics.md) | Data and inferential statistics | Data descriptors, random generators, time series, hypothesis tests, confidence intervals, rank correlation |
+| 🧮 [**Symbolic**](docs/README_Symbolic.md) | Symbolic computing and automatic differentiation | Expression trees, simplification, automatic differentiation, expression parsing, code generation |
+| 🔗 [**mml_ext**](include/mml_ext/) | Extensions to MML Core | Spectral graph analytics (PageRank, centralities) and field-line tracing; headers, not a sixth package library |
 
-## Quick start
+---
+
+## 🚀 Quick Start
 
 1. Download your platform archive and `SHA256SUMS` from [Releases](https://github.com/zvanjak/MML-Packages/releases). The [first published prerelease](https://github.com/zvanjak/MML-Packages/releases/tag/v0.1.0-rc.5) is `v0.1.0-rc.5`.
 2. Verify the archive's checksum, extract it, and use the extracted directory as your installation prefix. Keep its headers and libraries together.
-3. Point CMake at that prefix and link `MML::Packages` for all five libraries, or an individual target such as `MML::PDE`. The [binary installation guide](docs/Binary_Release.md) covers the exact toolchains, ABI requirements, and checksum commands.
+3. Point CMake at that prefix and link `MML::Packages` for all five libraries, or an individual target such as `MML::Optimization`. The [binary installation guide](docs/Binary_Release.md) covers the exact toolchains, ABI requirements, and checksum commands.
 
-For a taste of the API, this solves a one-dimensional Poisson problem on a structured grid:
+For a taste of the API, this runs NSGA-II on a small ZDT1-style bi-objective optimization problem:
 
 ```cpp
-Interval<double> domain(0.0, 1.0);
-Grid1D<double> grid(domain, 100);
-auto bc = homogeneousDirichlet1D<double>();
-PoissonSolver1D<double> poisson(grid, bc);
-poisson.setSource(source_function);
-auto solution = poisson.solve();
+#include <mml/MMLBase.h>
+#include <mml/base/Vector/Vector.h>
+#include <optimization/algorithms/NSGA2.h>
+#include <optimization/core/Variables.h>
+
+#include <cmath>
+#include <iostream>
+
+using namespace MML;
+using namespace MML::Optimization;
+
+int main() {
+    struct ZDT1 {
+        Vector<Real> Evaluate(const Vector<Real>& x) {
+            Real f1 = x[0];
+            Real sum = 0.0;
+            for (int i = 1; i < x.size(); ++i)
+                sum += x[i];
+
+            Real g = 1.0 + 9.0 * sum / (x.size() - 1);
+            Real f2 = g * (1.0 - std::sqrt(f1 / g));
+            return Vector<Real>{ f1, f2 };
+        }
+    } problem;
+
+    ProblemSpec spec = ProblemSpec::Continuous(10, 0.0, 1.0);
+
+    NSGA2Config config;
+    config.populationSize = 80;
+    config.maxGenerations = 150;
+    config.seed = 42;
+
+    NSGA2 nsga(config);
+    nsga.SetProblem(spec);
+
+    auto result = nsga.Optimize(problem);
+    std::cout << "Pareto solutions: " << result.paretoFront.size() << "\n";
+}
 ```
 
-The [full demo source](docs_demos/pde/example01_1d_poisson.cpp) defines `source_function`, includes the required headers, and compares the result with the analytical solution. It is compiled into `MML_DocsApp`; enable its call in [the demo main](docs_demos/docs_app_main.cpp) to run this particular example.
+Link the example with `MML::Optimization`. The [optimization guides](docs/README_Optimization.md) and [runnable documentation demos](docs_demos/optimization/) cover NSGA-II, MOEA/D, simulated annealing, genetic algorithms, penalty methods, and iterative lifecycle control in more detail.
 
-## Building & linking
+---
+
+## 🛠️ Building & Linking
 
 The public repository is a **release companion**, not a standalone source build: it contains headers, documentation, examples, and a vendored MML snapshot, but not the private library build sources or root CMake project. Use a matching [release archive](https://github.com/zvanjak/MML-Packages/releases) for compiled libraries. The installed `MMLPackages` config exports `MML::Packages`, five individual package targets, `MML::Core`, and `MML::Ext`.
 
@@ -75,7 +116,7 @@ Pass the actual extracted directory as `MML_INSTALLED_PREFIX`. On multi-configur
 
 ## Relationship to MML Core
 
-[MinimalMathLibrary](https://github.com/zvanjak/MinimalMathLibrary) supplies the general numerical foundation; these packages add domain-specific algorithms and solvers on top. Each release bundles a matching MML Core header snapshot, so consumers do not need to mix it with a separate MML checkout. Functionality that proves broadly useful may eventually move into MML Core.
+[MML Core](https://github.com/zvanjak/MML) supplies the general numerical foundation; these packages add domain-specific algorithms and solvers on top. Each release bundles a matching MML Core header snapshot, so consumers do not need to mix it with a separate MML checkout. Functionality that proves broadly useful may eventually move into MML Core.
 
 ## Documentation
 
